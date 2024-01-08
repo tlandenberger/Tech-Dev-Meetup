@@ -12,23 +12,34 @@
     </select>
 
     <ul>
-        @for (course of filteredCourses(); track course.id; let isEven = $even) {
-            <li [style]="isEven ? 'color: red' : ''">
+        @for (course of filteredCourses(); track course.id) {
+            <li (click)="onCourseClick(course)" style="cursor: pointer">
                 {{ course.title }}
             </li>
-            @switch (course.category) {
-                @case ('BEGINNER') {
-                    <small>Beginner</small>
-                }
-                @case ('INTERMEDIATE') {
-                    <small>Intermediate</small>
-                }
-                @case ('ADVANCED') {
-                    <small>Advanced</small>
-                }
-            }
         }
     </ul>
+
+    @if (courseContent()) {
+        @switch (courseContent()?.status) {
+            @case ('LOADING') {
+                <div>
+                    ...loading content
+                </div>
+            }
+            @case ('LOADED') {
+                <div>
+                    {{ courseContent()?.content }}
+                </div>
+            }
+            @case ('ERROR') {
+                <div>
+                    Unable to load course content
+                </div>
+            }
+            @default {
+            }
+        }
+    }
 } @else {
     <div>
         ...loading
