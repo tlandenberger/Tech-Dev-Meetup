@@ -2,6 +2,8 @@ import { Component, inject, Signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import {CourseStore} from "./CourseStore";
 import {Course} from "./course.service";
+import {CourseStore} from "./CourseStore";
+import {Course} from "./course.service";
 
 @Component({
     selector: 'app-courses',
