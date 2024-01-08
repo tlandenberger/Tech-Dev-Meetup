@@ -4,7 +4,8 @@
 
 <instance-profile id="tdm"
                  name="Tech Dev Meetup"
-                 start-page="Default-topic.md">
+                 start-page="Signals.md">
 
-    <toc-element topic="Angular-v17.md"/>
+    <toc-element topic="Signals.md"/>
+    <toc-element topic="Control-Flow.md"/>
 </instance-profile>
