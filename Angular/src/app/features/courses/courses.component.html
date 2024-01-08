@@ -2,7 +2,7 @@
 @if (courses().length > 0) {
     <select
         [ngModel]="filter()"
-        (ngModelChange)="filter.set($event)"
+        (ngModelChange)="onFilterChange($event)"
         name="filter"
     >
         <option value="">All</option>
