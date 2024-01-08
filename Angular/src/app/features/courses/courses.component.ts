@@ -6,7 +6,9 @@ import { delay, of, tap } from 'rxjs';
 @Component({
     selector: 'app-courses',
     standalone: true,
-    imports: [FormsModule, NgForOf, NgIf],
+    imports: [
+        FormsModule,
+    ],
     templateUrl: './courses.component.html',
     styleUrl: './courses.component.scss',
 })

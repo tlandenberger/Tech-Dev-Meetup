@@ -1,5 +1,5 @@
 <h1>Courses</h1>
-<ng-container *ngIf="courses().length > 0; else loading">
+@if (courses().length > 0) {
     <select
         [ngModel]="filter()"
         (ngModelChange)="filter.set($event)"
@@ -12,12 +12,25 @@
     </select>
 
     <ul>
-        <li *ngFor="let course of filteredCourses()">
-            {{ course.title }}
-        </li>
+        @for (course of filteredCourses(); track course.id; let isEven = $even) {
+            <li [style]="isEven ? 'color: red' : ''">
+                {{ course.title }}
+            </li>
+            @switch (course.category) {
+                @case ('BEGINNER') {
+                    <small>Beginner</small>
+                }
+                @case ('INTERMEDIATE') {
+                    <small>Intermediate</small>
+                }
+                @case ('ADVANCED') {
+                    <small>Advanced</small>
+                }
+            }
+        }
     </ul>
-</ng-container>
-
-<ng-template #loading>
-    <div>Loading...</div>
-</ng-template>
+} @else {
+    <div>
+        ...loading
+    </div>
+}
