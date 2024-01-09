@@ -11,11 +11,15 @@
         <option value="ADVANCED">Advanced</option>
     </select>
 
+    <button (click)="onAddCourseClick()">Add Course</button>
+
     <ul>
         @for (course of filteredCourses(); track course.id) {
             <li (click)="onCourseClick(course)" style="cursor: pointer">
                 {{ course.title }}
             </li>
+            <button (click)="onUpdateCourseClick(course)">Update</button>
+            <button (click)="onDeleteCourseClick(course)">Delete</button>
         }
     </ul>
 
