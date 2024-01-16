@@ -1,6 +1,10 @@
 <h1>Courses</h1>
 <ng-container *ngIf="courses().length > 0; else loading">
-    <select [ngModel]="filter()" (ngModelChange)="filter.set($event)" name="filter">
+    <select
+        [ngModel]="filter()"
+        (ngModelChange)="filter.set($event)"
+        name="filter"
+    >
         <option value="">All</option>
         <option value="BEGINNER">Beginner</option>
         <option value="INTERMEDIATE">Intermediate</option>
