@@ -6,9 +6,7 @@ import { delay, of, tap } from 'rxjs';
 @Component({
     selector: 'app-courses',
     standalone: true,
-    imports: [
-        FormsModule,
-    ],
+    imports: [FormsModule],
     templateUrl: './courses.component.html',
     styleUrl: './courses.component.scss',
 })
@@ -25,12 +23,14 @@ export class CoursesComponent implements OnInit {
     );
 
     constructor() {
-        effect(() => {
-            this.fetchCourseContent(this.selectedCourse()).then(res => this.courseContent.set({
-                content: res || '',
-                status: 'LOADED'
-            }));
-        }, {allowSignalWrites: true});
+        effect(
+            () => {
+                this.fetchCourseContent(this.selectedCourse()).subscribe(
+                    (res) => this.courseContent.set(res)
+                );
+            },
+            { allowSignalWrites: true }
+        );
     }
 
     ngOnInit() {
@@ -64,22 +64,20 @@ export class CoursesComponent implements OnInit {
         ] as Course[]).pipe(delay(2000));
     }
 
-    private async fetchCourseContent(course: Course | null) {
-        this.courseContent.update(content => content ? ({...content, status: 'LOADING'}) : null);
-
-        if (course) {
-            return new Promise<string>(resolve => {
-                setTimeout(() => {
-                    const content = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. ' +
-                        'Sed non risus. Suspendisse lectus tortor, dignissim sit amet, ' +
-                        'adipiscing nec, ultricies sed, dolor. Cras elementum ultrices diam.'
-
-                    resolve(content);
-                }, 2000);
-            });
-        } else {
-            return null;
-        }
+    private fetchCourseContent(course: Course | null) {
+        const courseContent =
+            course != null
+                ? ({
+                      content:
+                          course.id +
+                          '\n' +
+                          'Lorem ipsum dolor sit amet, consectetur adipiscing elit. ' +
+                          'Sed non risus. Suspendisse lectus tortor, dignissim sit amet, ' +
+                          'adipiscing nec, ultricies sed, dolor. Cras elementum ultrices diam.',
+                      status: 'LOADED',
+                  } as CourseContent)
+                : null;
+        return of(courseContent);
     }
 }
 
